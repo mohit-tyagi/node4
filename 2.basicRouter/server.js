@@ -2,6 +2,7 @@
 
 const http = require('http');
 const url = require('url');
+const qs = require('querystring');
 
 let routes = {
     'GET' : {
@@ -15,6 +16,18 @@ let routes = {
         }
     },
     'POST' : {
+        '/api/login' : (req, res) => {
+            let body = '';
+            req.on('data', (chunk) => {
+                body += chunk;
+                // check body.length ot restrict request data size
+            });
+            req.on('end', () => {
+                let params = qs.parse(body);
+                console.log('>>>>>>>>>>>>>>>>>>', params);
+                res.end('done');
+            });
+        }
 
     },
     'NA' : (req, res) => {
